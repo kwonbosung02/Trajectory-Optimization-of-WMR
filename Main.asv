@@ -1,0 +1,25 @@
+function out = Main()
+close all
+clear all
+clc
+%index and parameters
+[idx, params] = get_params();
+data = get_Data();
+
+%initial state
+states = params.startState;
+
+%iteration number
+iterNum = params.iterNum;
+
+plot(data.x,data.y);
+hold on
+plot(data.startx,data.start.y)
+for simNum  = 1 : iterNum
+    
+     %states = TrajectoryOptimization(simNum,idx,params,states,data);
+
+     
+end
+
+end

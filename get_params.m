@@ -27,8 +27,8 @@ params.Rcond = diag(repmat(params.Runit,1,idx.n_hor));
 params.dt = 0.03;
 
 %start and end State
-params.startState = [0; -1; pi/2];
-params.endState = [0; 0; 0];
+params.startState = [0; 0; 0];
+params.endState = [10; 0; 0];
 
 %constraint
 params.v_min = -4;
@@ -37,7 +37,7 @@ params.w_min = -4;
 params.w_max = 4;
 
 %constraint Matrix
-%quadProg A 
+%A 
 params.quadProgA = cell(idx.n_hor);
 Acont = vertcat(eye(2),-eye(2));
 
@@ -52,10 +52,10 @@ for i = 1 : idx.n_hor
         end
     end
 end
-params.quadProgA = cell2mat(params.quadProgA);
+params.Aeq = cell2mat(params.quadProgA);
 
-%quadProg b
-params.quadProgb = cell(idx.n_hor,1);
+%b
+params.Beq = cell(idx.n_hor,1);
 for i = 1 : idx.n_hor
 
     params.quadProgb{i,1} = [params.v_max; params.w_max; -params.v_min; -params.w_min];

@@ -1,37 +1,35 @@
 function data = get_Data()
 
-t = 0 : 0.01 : 2*pi;
-t2 = 2*pi-0.01 : -0.01 : 0;
+n = 100;
+point = linspace(0, 2*pi,n);
 
-%X Y Theta data
-X = horzcat(2*sin(t),-2*sin(t2));
-Y = horzcat(2*cos(t+pi)+2,-2*cos(t2+pi)-2);
-theta = horzcat(t,t2);
+%start position
+data.start_center = [0 0];
+data.start_radius = 0.05;
+data.startx = data.start_radius * cos(point) + data.start_center(1);
+data.starty = data.start_radius * sin(point) + data.start_center(2);
 
-dX = horzcat(2*cos(t),2*cos(t2));
-dY = horzcat(-2*sin(t+pi),-2*sin(t2+pi));
 
-% %================Test=================
-% t = 0 : 0.01 : 2*pi;
-% theta = t;
-% X = cos(t);
-% Y = sin(t)+1;
-% dX = -sin(t);
-% dY = cos(t);
-% plot(X,Y);
-% %=====================================
-plot(X,Y)
-grid on
-data.x = X;
-data.y = Y;
+%end position
+data.end_center = [10 0];
+data.end_radius = 0.05;
+data.endx = data.end_radius * cos(point) + data.end_center(1);
+data.endy = data.end_radius * sin(point) + data.end_center(2);
 
-data.theta= theta;
-data.states = [X; Y; theta];
 
-data.dx = dX;
-data.dy = dY;
-data.v = sqrt(dX.^2+dY.^2);
-data.w = gradient(theta);
+%object
+data.center = [5 0];
+data.radius = 2;
+data.x = data.radius * cos(point) + data.center(1);
+data.y = data.radius * sin(point) + data.center(2);
+
+% plot(data.startx,data.starty);
+% hold on
+% plot(data.endx, data.endy);
+% hold on
+% plot(data.x,data.y);
+
+
 
 end
 
