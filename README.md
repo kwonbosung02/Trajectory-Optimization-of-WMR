@@ -1,1 +1,1 @@
-# Trajectory-Optimization-of-WMR
+# Trajectory Optimization of WMR
