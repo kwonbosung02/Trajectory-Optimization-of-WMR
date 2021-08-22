@@ -25,26 +25,25 @@ function states_ = TrajectoryOptimization(simNum,idx,params,states,data)
 %     states_ = get_NextStates(states,idx, params, u);
 %     
 
-%inequality constraints
-%A = params.A;
-%b = params.b;
-%equality constraints
-%Aeq = [];
-%Beq = [];d
 
 %non-linear constraints
 function [c,ceq] = NonLinearConstraints(X)
 
-c = -((X(1)- 5)^2 + (X(2)-0)^2 - 2^2);
+c = -((X(idx.x)- 5)^2 + (X(idx.y)-0)^2 - 2^2);
 ceq = [];
 
 end
 nonlcon = @NonLinearConstraints;
+
 %function 
 func = @(X)(X-params.startState)' *(X-params.startState) + (X-params.endState)' * (X-params.endState)
 
 %fix this with U
-states_ = fmincon(func,states,[],[],[],[],[],[],nonlcon);
+%states_ = fmincon(func,states,[],[],[],[],[],[],nonlcon);
 
+states_ = get_NextStates(states,idx, params, u);
 
 end
+
+
+
