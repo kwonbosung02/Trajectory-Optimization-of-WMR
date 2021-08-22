@@ -19,7 +19,7 @@ data.endy = data.end_radius * sin(point) + data.end_center(2);
 
 %object
 data.center = [5 0];
-data.radius = 2;
+data.radius = 1;
 data.x = data.radius * cos(point) + data.center(1);
 data.y = data.radius * sin(point) + data.center(2);
 

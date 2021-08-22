@@ -15,8 +15,10 @@ idx.n_dim = 3;
 params.iterNum = 1236;
 
 %Weight matrix
-params.Qunit = [1,1,0.33];
-params.Runit = [1e-1,1e-1];
+%params.Qunit = [1,1,0.33];
+%params.Runit = [1e-1,1e-1];
+params.Qunit = diag([1,1,0.5]);
+params.Runit = 0.1 * eye(2);
 
 %Condensed Weight matrix
 params.Qcond = diag(repmat(params.Qunit,1,idx.n_hor));
@@ -27,8 +29,8 @@ params.Rcond = diag(repmat(params.Runit,1,idx.n_hor));
 params.dt = 0.03;
 
 %start and end State
-params.startState = [0; 0; 0];
-params.endState = [10; 0; 0];
+params.startState = [0; 0; 0; 0; 0];
+params.endState = [10; 0; 0; 0; 0];
 
 %constraint
 params.v_min = -4;

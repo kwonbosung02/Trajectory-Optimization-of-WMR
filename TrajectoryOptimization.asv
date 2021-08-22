@@ -1,9 +1,5 @@
-function states_ = TrajectoryOptimization(simNum,idx,params,states,data)
-%     
-%     num.simNum = simNum; %k
-%     
-%     for hornum = 1 : idx.n_hor
-%         
+function states_ = TrajectoryOptimization(simNum,idx,params,states,data,guess)
+       
 %     num.horNum = hornum;    
 %     [Adyn,Bdyn] = get_DynamicMatrix(num,idx,params,data,states);
 %     A{hornum} = Adyn; %(k|k) (k+1|k) ... (k + horizon -1 | k)
@@ -25,7 +21,15 @@ function states_ = TrajectoryOptimization(simNum,idx,params,states,data)
 %     states_ = get_NextStates(states,idx, params, u);
 %     
 
+num.simNum = simNum; %k
 
+for hornum = 1 : idx.n_hor
+    num.horNum = hornum; 
+    
+    
+end
+
+  
 %non-linear constraints
 function [c,ceq] = NonLinearConstraints(X)
 
@@ -36,7 +40,7 @@ end
 nonlcon = @NonLinearConstraints;
 
 %function 
-func = @(X)(X-params.startState)' *(X-params.startState) + (X-params.endState)' * (X-params.endState)
+func = @(X)(X-params.startState)' * params.Qunit * (X-params.startState) + (X-params.endState)' * (X-params.endState)
 
 %fix this with U
 %states_ = fmincon(func,states,[],[],[],[],[],[],nonlcon);
