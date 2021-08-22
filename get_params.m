@@ -8,11 +8,11 @@ idx.w = 2;
 
 idx.n_states = 3;
 idx.n_inputs = 2;
-idx.n_hor = 21;
+idx.n_hor = 5;
 idx.n_dim = 3;
 
 %iteration number
-params.iterNum = 1236;
+params.iterNum = 1000;
 
 %Weight matrix
 %params.Qunit = [1,1,0.33];

@@ -35,9 +35,13 @@ nonlcon = @NonLinearConstraints;
 
 for horNum = 1 : idx.n_hor
     num.horNum = horNum; 
+    
     Xt = guess.data(:,simNum + horNum);
-    func = @(X)(X(:,1:3)-Xt(:,1:3))' * params.Qunit * (X(:,1:3)-Xt(:,1:3));% + (X(:,1:3)-Xt(:,1:3))' * params.Qunit * (X(:,1:3)-Xt(:,1:3)) + X(:,4:5)' * params.Runit * X(:,4:5);
+    
+    func = @(X)(X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + (X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + X(4:5,:)' * params.Runit * X(4:5,:);
     value  = fmincon(func,states,[],[],[],[],[],[],nonlcon);
+    disp(value);
+    states_ = get_NextStates(states,value);
 
 end
 
