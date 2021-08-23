@@ -3,8 +3,8 @@ function [idx,params] = get_params()
 idx.x = 1;
 idx.y = 2;
 idx.theta = 3;
-idx.v = 1;
-idx.w = 2;
+idx.v = 4;
+idx.w = 5;
 
 idx.n_states = 3;
 idx.n_inputs = 2;
@@ -26,11 +26,11 @@ params.Rcond = diag(repmat(params.Runit,1,idx.n_hor));
 
 
 %sampling period dt
-params.dt = 0.03;
+params.dt = 0.025;
 
 %start and end State
-params.startState = [0; 0; 0];
-params.endState = [10; 0; 0];
+params.startState = [0; 0; 0; 0; 0];
+params.endState = [10; 0; 0; 0; 0];
 
 %constraint
 params.v_min = -4;

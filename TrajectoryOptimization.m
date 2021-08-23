@@ -1,13 +1,16 @@
-function states_ = TrajectoryOptimization(simNum,idx,params,states,data,guess)
+function states_ = TrajectoryOptimization(simNum,states,data,guess)
 
 %Non-Linear constraints 
-
+nonlcon = @NonLinearConstraints;
+global idx params;
 %Cost function
-func = @(X)(X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + (X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + X(4:5,:)' * params.Runit * X(4:5,:);
 
 num.simNum = simNum;
 for horNum = 1 : idx.n_hor
-    disp(simNum + horNum - 1);
+    num.horNum = horNum;
+    [Adyn,Bdyn] = get_DynamicMatrix(num,guess);
+    
+    disp(Adyn);
 end
 
 

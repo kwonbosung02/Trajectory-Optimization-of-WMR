@@ -2,9 +2,10 @@ function out = Main()
 close all
 clear all
 clc
-
+global idx params;
 %index and parameters
 [idx, params] = get_params();
+
 data = get_Data();
 
 %initial state
@@ -30,16 +31,15 @@ guess.v = linspace(3,3,iterNum);
 guess.w = linspace(0,0,iterNum);
 
 %state and control force
-guess.state = vertcat(guess.x,guess.y,guess.theta);
-guess.u = vertcat(guess.v,guess.w);
+guess.data = vertcat(guess.x,guess.y,guess.theta,guess.v,guess.w);
 
 %main
 
 %should put dynamic model
 
-for simNum  = 1 : iterNum
+for simNum  = 1 : iterNum - idx.n_hor + 1
     
-     states = TrajectoryOptimization(simNum,idx,params,states,data,guess);
+     TrajectoryOptimization(simNum,states,data,guess);
      %plot(states(idx.x),states(idx.y),'-o');
      drawnow;
      
