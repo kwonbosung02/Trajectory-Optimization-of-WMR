@@ -2,6 +2,7 @@ function out = Main()
 close all
 clear all
 clc
+
 %index and parameters
 [idx, params] = get_params();
 data = get_Data();
@@ -25,21 +26,21 @@ grid on
 guess.x = linspace(params.startState(idx.x), params.endState(idx.x),iterNum);
 guess.y = linspace(params.startState(idx.y), params.endState(idx.y),iterNum);
 guess.theta = linspace(params.startState(idx.theta), params.endState(idx.theta),iterNum);
-guess.v = linspace(0,0,iterNum);
+guess.v = linspace(3,3,iterNum);
 guess.w = linspace(0,0,iterNum);
 
 %state and control force
-guess.data = vertcat(guess.x,guess.y,guess.theta,guess.v,guess.w);
-
+guess.state = vertcat(guess.x,guess.y,guess.theta);
+guess.u = vertcat(guess.v,guess.w);
 
 %main
 
-
+%should put dynamic model
 
 for simNum  = 1 : iterNum
     
      states = TrajectoryOptimization(simNum,idx,params,states,data,guess);
-     plot(states(idx.x),states(idx.y),'-o');
+     %plot(states(idx.x),states(idx.y),'-o');
      drawnow;
      
 end

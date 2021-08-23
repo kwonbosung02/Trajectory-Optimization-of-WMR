@@ -29,8 +29,8 @@ params.Rcond = diag(repmat(params.Runit,1,idx.n_hor));
 params.dt = 0.03;
 
 %start and end State
-params.startState = [0; 0; 0; 0; 0];
-params.endState = [10; 0; 0; 0; 0];
+params.startState = [0; 0; 0];
+params.endState = [10; 0; 0];
 
 %constraint
 params.v_min = -4;
