@@ -8,11 +8,11 @@ idx.w = 5;
 
 idx.n_states = 3;
 idx.n_inputs = 2;
-idx.n_hor = 5;
+idx.n_hor = 3;
 idx.n_dim = 3;
 
 %iteration number
-params.iterNum = 1000;
+params.iterNum = 400;
 
 %Weight matrix
 %params.Qunit = [1,1,0.33];
@@ -26,17 +26,17 @@ params.Rcond = diag(repmat([0.1,0.1],1,idx.n_hor));
 
 
 %sampling period dt
-params.dt = 0.025;
+params.dt = 0.05;
 
 %start and end State
 params.startState = [0; 0; 0];
 params.endState = [10; 0; 0];
 
 %constraint
-params.v_min = -4;
-params.v_max = 4;
-params.w_min = -4;
-params.w_max = 4;
+params.v_min = -10;
+params.v_max = 10;
+params.w_min = -10;
+params.w_max = 10;
 
 %constraint Matrix
 %A 

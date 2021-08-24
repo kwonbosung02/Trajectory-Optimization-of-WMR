@@ -3,8 +3,9 @@ function states_ = TrajectoryOptimization(simNum,states,data,guess)
 %Non-Linear constraints 
 nonlcon = @NonLinearConstraints;
 global idx params;
-%Cost function
 
+
+%
 num.simNum = simNum;
 for horNum = 1 : idx.n_hor
     num.horNum = horNum;
@@ -17,7 +18,9 @@ H = get_HessianMatrix(Bcond,num);
 f = get_fMatrix(Acond,Bcond,states, num, guess);
 H = (H + H') / 2 ;
 u = quadprog(H, f, params.quadProgA,params.quadProgb);
+
 states_ = get_NextStates(states, u);
+
 
 %     num.horNum = hornum;    
 %     [Adyn,Bdyn] = get_DynamicMatrix(num,idx,params,data,states);
