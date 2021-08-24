@@ -7,8 +7,8 @@ A = eye(idx.n_states);
 k_ = simNum + horNum - 1;
 
 %Value A
-A(idx.x, idx.theta) = -guess.data(idx.x,k_) * sin(guess.data(idx.theta,k_)) * params.dt;
-A(idx.y, idx.theta) = guess.data(idx.x,k_) * cos(guess.data(idx.theta,k_)) * params.dt;
+A(idx.x, idx.theta) = -guess.data(idx.v,k_) * sin(guess.data(idx.theta,k_)) * params.dt;
+A(idx.y, idx.theta) = guess.data(idx.v,k_) * cos(guess.data(idx.theta,k_)) * params.dt;
 
 %Value B
 B = zeros(idx.n_states,idx.n_inputs);

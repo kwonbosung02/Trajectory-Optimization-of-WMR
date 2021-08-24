@@ -1,5 +1,5 @@
-function [Acond, Bcond] = get_CondensedMatrix(A,B,idx,params)
-    
+function [Acond, Bcond] = get_CondensedMatrix(A,B)
+global idx;
 %get A condensed Matrix
 Ax = eye(3);
 Acond = [];   

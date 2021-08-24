@@ -1,4 +1,4 @@
-function f = get_fMatrix(Acond,Bcond,states,idx,params,num,data)
-
-f = 2 * Bcond' * params.Qcond * Acond * (states-data.states(:,num.simNum));
+function f = get_fMatrix(Acond,Bcond,states,num,guess)
+global params;
+f = 2 * Bcond' * params.Qcond * Acond * (states-guess.state(:,num.simNum));
 end

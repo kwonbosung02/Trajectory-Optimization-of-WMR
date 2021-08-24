@@ -21,16 +21,16 @@ params.Qunit = diag([1,1,0.5]);
 params.Runit = 0.1 * eye(2);
 
 %Condensed Weight matrix
-params.Qcond = diag(repmat(params.Qunit,1,idx.n_hor));
-params.Rcond = diag(repmat(params.Runit,1,idx.n_hor));
+params.Qcond = diag(repmat([1,1,0.5],1,idx.n_hor));
+params.Rcond = diag(repmat([0.1,0.1],1,idx.n_hor));
 
 
 %sampling period dt
 params.dt = 0.025;
 
 %start and end State
-params.startState = [0; 0; 0; 0; 0];
-params.endState = [10; 0; 0; 0; 0];
+params.startState = [0; 0; 0];
+params.endState = [10; 0; 0];
 
 %constraint
 params.v_min = -4;
@@ -54,10 +54,10 @@ for i = 1 : idx.n_hor
         end
     end
 end
-params.Aeq = cell2mat(params.quadProgA);
+params.quadProgA = cell2mat(params.quadProgA);
 
 %b
-params.Beq = cell(idx.n_hor,1);
+params.quadProgB = cell(idx.n_hor,1);
 for i = 1 : idx.n_hor
 
     params.quadProgb{i,1} = [params.v_max; params.w_max; -params.v_min; -params.w_min];

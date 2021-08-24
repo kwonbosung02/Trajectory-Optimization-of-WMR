@@ -9,10 +9,15 @@ num.simNum = simNum;
 for horNum = 1 : idx.n_hor
     num.horNum = horNum;
     [Adyn,Bdyn] = get_DynamicMatrix(num,guess);
-    
-    disp(Adyn);
+    A{horNum} = Adyn;
+    B{horNum} = Bdyn;
 end
-
+[Acond, Bcond] = get_CondensedMatrix(A,B);
+H = get_HessianMatrix(Bcond,num);
+f = get_fMatrix(Acond,Bcond,states, num, guess);
+H = (H + H') / 2 ;
+u = quadprog(H, f, params.quadProgA,params.quadProgb);
+states_ = get_NextStates(states, u);
 
 %     num.horNum = hornum;    
 %     [Adyn,Bdyn] = get_DynamicMatrix(num,idx,params,data,states);
@@ -52,7 +57,6 @@ end
 %     states_ = get_NextStates(states,value);
 % 
 % end
-states_ = 0;
 
 end
 

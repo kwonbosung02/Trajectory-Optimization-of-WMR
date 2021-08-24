@@ -11,7 +11,7 @@ w = X(idx.w,1);
 dt = params.dt;
 
 
-%circle object
+%circle 
 c(1) = -((x- 5)^2 + (y-0)^2 - 2^2);
 
 %control constraints
@@ -21,4 +21,5 @@ c(4) = w - params.w_max;
 c(5) = -w + params.w_min;
 
 ceq = [];
+
 end
