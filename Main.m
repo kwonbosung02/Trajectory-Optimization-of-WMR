@@ -36,9 +36,10 @@ guess.state = vertcat(guess.x,guess.y,guess.theta);
 
 %initial control input
 input = params.InitialInput;
-horNum = params.T / params.dt ;
+horNum = iterNum;
+
 [states,input] = TrajectoryOptimization(horNum,states,data,guess,input);
-plot(states(idx.x),states(idx.y),'-o');
-drawnow;
+
+plot(states(idx.x,:),states(idx.y,:));
 
 end 
