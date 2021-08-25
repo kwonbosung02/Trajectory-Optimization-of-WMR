@@ -3,7 +3,7 @@ function states_ = TrajectoryOptimization(simNum,states,data,guess)
 %Non-Linear constraints 
 nonlcon = @NonLinearConstraints;
 global idx params;
-%Cost function
+
 
 %
 num.simNum = simNum;
@@ -13,6 +13,7 @@ for horNum = 1 : idx.n_hor
     A{horNum} = Adyn;
     B{horNum} = Bdyn;
 end
+
 [Acond, Bcond] = get_CondensedMatrix(A,B);
 H = get_HessianMatrix(Bcond,num);
 f = get_fMatrix(Acond,Bcond,states, num, guess);
@@ -20,6 +21,23 @@ H = (H + H') / 2 ;
 u = quadprog(H, f, params.quadProgA,params.quadProgb);
 
 states_ = get_NextStates(states, u);
+
+Xcond = [states_; u];
+
+func = @(X) (X-guess.data(num.simNum))' * params.Qunit * (X-guess.data(num.simNum)) + (X-guess.data(num.simNum + num.horNum - 1))' * params.Qunit * (X-guess.data(num.simNum + num.horNum - 1));
+value  = fmincon(func,states,[],[],[],[],[],[],nonlcon);
+
+%main
+
+%should put dynamic model
+%    
+%     Xt = guess.data(:,simNum + horNum);
+%     
+%     func = @(X)(X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + (X(1:3,:)-Xt(1:3,:))' * params.Qunit * (X(1:3,:)-Xt(1:3,:)) + X(4:5,:)' * params.Runit * X(4:5,:);
+%     value  = fmincon(func,states,[],[],[],[],[],[],nonlcon);
+%     disp(value);
+%     states_ = get_NextStates(states,value);
+% 
 
 
 %     num.horNum = hornum;    

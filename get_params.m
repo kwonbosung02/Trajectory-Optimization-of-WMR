@@ -32,6 +32,8 @@ params.dt = 0.05;
 params.startState = [0; 0; 0];
 params.endState = [10; 0; 0];
 
+%Initial Control Input
+params.InitialInput = [0; 0];
 %constraint
 params.v_min = -10;
 params.v_max = 10;
