@@ -11,13 +11,13 @@ idx.n_inputs = 2;
 idx.n_hor = 3;
 idx.n_dim = 3;
 
-%iteration number
-params.iterNum = 400;
+
+
 
 %Weight matrix
 %params.Qunit = [1,1,0.33];
 %params.Runit = [1e-1,1e-1];
-params.Qunit = diag([1,1,0.5]);
+params.Qunit = diag([100,100,0.5]);
 params.Runit = 0.1 * eye(2);
 
 %Condensed Weight matrix
@@ -26,7 +26,12 @@ params.Rcond = diag(repmat([0.1,0.1],1,idx.n_hor));
 
 
 %sampling period dt
+params.T = 2;
 params.dt = 0.05;
+
+
+%iteration number
+params.iterNum = params.T / params.dt ;
 
 %start and end State
 params.startState = [0; 0; 0];

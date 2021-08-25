@@ -34,13 +34,11 @@ guess.w = linspace(0,0,iterNum);
 guess.data = vertcat(guess.x,guess.y,guess.theta,guess.v,guess.w);
 guess.state = vertcat(guess.x,guess.y,guess.theta);
 
-
-for simNum  = 1 : iterNum - idx.n_hor + 1
-     
-     states = TrajectoryOptimization(simNum,states,data,guess);
-     plot(states(idx.x),states(idx.y),'-o');
-     drawnow;
-     
-end
+%initial control input
+input = params.InitialInput;
+horNum = params.T / params.dt ;
+[states,input] = TrajectoryOptimization(horNum,states,data,guess,input);
+plot(states(idx.x),states(idx.y),'-o');
+drawnow;
 
 end 

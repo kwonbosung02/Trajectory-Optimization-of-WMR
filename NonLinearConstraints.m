@@ -2,24 +2,45 @@
 function [c,ceq] = NonLinearConstraints(X) %x y theta v w
 
 global idx params;
+n_hor = params.iterNum;
+x = X(idx.x,1:n_hor);
+y = X(idx.y,1:n_hor);
+theta = X(idx.theta,1:n_hor);
+v = X(idx.v,1:n_hor);
+w = X(idx.w,1:n_hor);
+dt = params.dt;
 
-x = X(idx.x,1);
-y = X(idx.y,1);
-theta = X(idx.theta,1);
-% v = X(idx.v,1);
-% w = X(idx.w,1);
-% dt = params.dt;
+n_states = idx.n_states;
+n_inputs = idx.n_inputs;
 
 
-%circle 
-c(1) = -((x- 5)^2 + (y-0)^2 - 2^2);
 
-%control constraints
-% c(2) = v - params.v_max;  % v <= v_max
-% c(3) = -v + params.v_min; % v >= v_min
-% c(4) = w - params.w_max;  % w <= w_max
-% c(5) = -w + params.w_min; % w >= w_min
+   % initial(n_states*(0)+1) = x(1,1) - guess.x(1,1);
+   
+   % initial(n_states*(0)+2) = y(1,1) - guess.y(1,1);
+   %  initial(n_states*(0)+3) = theta(1,1) - guess.theta(1,1);
 
-ceq = [];
+    
+    % final(n_states*(0)+1) = x(1,end) - guess.x(1,end);
+    % final(n_states*(0)+2) = y(1,end) - guess.y(1,end);
+    % final(n_states*(0)+3) = theta(1,end) - guess.theta(1,end);
+
+%circle
+for i=1:size(x,2)
+    outCircle(i) = -((x(1,i)- 5)^2 + (y(1,i)-0)^2 - 2^2);
+    
+    
+    if i~=size(x,2)
+        dynConst(n_states*(i-1)+1) =  x(1,i+1) - x(1,i) - dt * v(1,i) * cos( theta(1,i) ) ;
+        dynConst(n_states*(i-1)+2) =  y(1,i+1) - y(1,i) - dt * v(1,i) * sin( theta(1,i) ) ;
+        dynConst(n_states*(i-1)+3) =  theta(1,i+1) - theta(1,i) - dt * w(1,i)  ;
+    
+        
+    end
+end
+
+c = [outCircle'  ];
+
+ceq = [ dynConst' ];
 
 end

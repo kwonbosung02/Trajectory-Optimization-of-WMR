@@ -1,10 +1,9 @@
-function states_ = TrajectoryOptimization(simNum,states,data,guess)
+function [states_,input] = TrajectoryOptimization(horNum,states,data,guess,input)
 
 %Non-Linear constraints 
 nonlcon = @NonLinearConstraints;
 global idx params;
-num.simNum = simNum;
-num.horNum = idx.n_hor;
+n_hor = horNum;
 
 % %%%%%%%%%%%%%%%%%%%%%%
 % num.simNum = simNum;
@@ -24,10 +23,19 @@ num.horNum = idx.n_hor;
 % states_ = get_NextStates(states, u);
 % %%%%%%%%%%%%%%%%%%%%%%
 
-func = @(X) (X-guess.state(:,num.simNum))' * params.Qunit * (X-guess.state(:,num.simNum)) + (X-guess.state(:,num.simNum + num.horNum - 1))' * params.Qunit * (X-guess.state(:,num.simNum + num.horNum - 1));
-value  = fmincon(func,states,[],[],[],[],[],[],nonlcon);
-states_ = value;
-disp(value)
+u = input;
+func = @(X) ( sum( sum(  (X(1:3,1:n_hor)-guess.state(1:3,1:n_hor))' * params.Qunit * (X(1:3,1:n_hor)-guess.state(1:3,1:n_hor))) ...
+        + sum ( sum( X(4:5,1:n_hor)' * params.Runit * X(4:5,1:n_hor) ) ))) ;
+    
+lb = [-Inf; -Inf; -Inf; params.v_min; params.w_min];
+ub = [Inf; Inf; Inf; params.v_max; params.v_max];
+    
+value  = fmincon(func,repmat( [states; u] , 1, n_hor) ,[],[],[],[],lb,ub,nonlcon); %fun x0 A b Aeq beq lb ub
+
+states_ = value(1:3,:);
+input = value(4:5,:);
+
+%
 
 %main
 %should put dynamic model
