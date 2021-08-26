@@ -17,7 +17,7 @@ idx.n_dim = 3;
 %Weight matrix
 %params.Qunit = [1,1,0.33];
 %params.Runit = [1e-1,1e-1];
-params.Qunit = diag([100,100,0.5]);
+params.Qunit = diag([1,1,0.4]);
 params.Runit = 0.1 * eye(2);
 
 %Condensed Weight matrix
@@ -26,8 +26,8 @@ params.Rcond = diag(repmat([0.1,0.1],1,idx.n_hor));
 
 
 %sampling period dt
-params.T = 2;
-params.dt = 0.05;
+params.T = 10;
+params.dt = 0.1;
 
 
 %iteration number

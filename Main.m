@@ -2,6 +2,7 @@ function out = Main()
 close all
 clear all
 clc
+
 global idx params;
 %index and parameters
 [idx, params] = get_params();
@@ -40,6 +41,6 @@ horNum = iterNum;
 
 [states,input] = TrajectoryOptimization(horNum,states,data,guess,input);
 
-plot(states(idx.x,:),states(idx.y,:));
-
+plot(states(idx.x,:),states(idx.y,:),'LineWidth',3);
+disp(states)
 end 
