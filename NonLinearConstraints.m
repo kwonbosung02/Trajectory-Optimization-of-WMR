@@ -38,10 +38,10 @@ for i = 1 : size(x,2)
     %v and w inequality constraints
     v_cond(n_input * (i-1) + 1) = v(1,i) - params.v_max;
     v_cond(n_input * (i-1) + 2) = params.v_min - v(1,i);
-     
+    
     w_cond(n_input * (i-1) + 1) = w(1,i) - params.w_max;
     w_cond(n_input * (i-1) + 2) = params.w_min - w(1,i);
-     
+    
     
     if i ~= size(x,2)
         dynConst(n_states * (i-1) + 1) =  x(1,i+1) - x(1,i) - dt * v(1,i) * cos( theta(1,i) ) ;
@@ -51,7 +51,7 @@ for i = 1 : size(x,2)
     
 end
 
-c = [outCircle'; v_cond'; w_cond'];
+c = [outCircle' ; v_cond' ; w_cond'  ];
 
 ceq = [dynConst'; initial'; final' ];
 end
