@@ -17,8 +17,8 @@ idx.n_dim = 3;
 %Weight matrix
 %params.Qunit = [1,1,0.33];
 %params.Runit = [1e-1,1e-1];
-params.Qunit = diag([1,1,0.4]);
-params.Runit = 0.1 * eye(2);
+params.Qunit = diag([1.2,1.2,0.6]);
+params.Runit = 0.4 * eye(2);
 
 %Condensed Weight matrix
 params.Qcond = diag(repmat([1,1,0.5],1,idx.n_hor));

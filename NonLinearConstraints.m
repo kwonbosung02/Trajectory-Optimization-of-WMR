@@ -15,7 +15,6 @@ v = X(idx.v,1:n_hor);
 w = X(idx.w,1:n_hor);
 
 dt = params.dt;
-
 n_states = idx.n_states;
 n_input = idx.n_inputs;
 
@@ -28,7 +27,7 @@ final(idx.x) = x(1,n_hor) - params.endState(idx.x);
 final(idx.y) = y(1,n_hor) - params.endState(idx.y);
 final(idx.theta) = theta(1,n_hor) - params.endState(idx.theta);
 
-for i=1:size(x,2)
+for i = 1 : size(x,2)
     %object inequality constraints
     outCircle(i) = -((x(1,i)- 5)^2 + (y(1,i)-0)^2 - 2^2);
     

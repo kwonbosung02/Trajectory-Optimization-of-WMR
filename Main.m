@@ -37,6 +37,7 @@ guess.state = vertcat(guess.x,guess.y,guess.theta);
 
 %initial control input
 input = params.InitialInput;
+
 horNum = iterNum;
 
 [states,input] = TrajectoryOptimization(horNum,states,data,guess,input);
@@ -44,3 +45,5 @@ horNum = iterNum;
 plot(states(idx.x,:),states(idx.y,:),'LineWidth',3);
 disp(states)
 end 
+
+
