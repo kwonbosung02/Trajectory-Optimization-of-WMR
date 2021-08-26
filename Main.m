@@ -10,7 +10,7 @@ global idx params;
 data = get_Data();
 
 %initial state
-states = params.startState; %[0 0 0]
+states = params.startState;
  
 %iteration number
 iterNum = params.iterNum;
@@ -22,6 +22,9 @@ plot(data.startx,data.starty,'LineWidth',2);
 hold on
 plot(data.endx,data.endy,'LineWidth',2);
 grid on
+xlim([-3 13])
+ylim([-2 2])
+
 
 %guess trajectory
 % x y theta v w 
@@ -30,6 +33,7 @@ guess.y = linspace(params.startState(idx.y), params.endState(idx.y),iterNum);
 guess.theta = linspace(params.startState(idx.theta), params.endState(idx.theta),iterNum);
 guess.v = linspace(0,0,iterNum);
 guess.w = linspace(0,0,iterNum);
+
 
 %state and control force
 guess.data = vertcat(guess.x,guess.y,guess.theta,guess.v,guess.w);
@@ -44,6 +48,7 @@ horNum = iterNum;
 
 plot(states(idx.x,:),states(idx.y,:),'LineWidth',3);
 disp(states)
+disp(input)
 end 
 
 
