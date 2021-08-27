@@ -28,8 +28,8 @@ final(idx.y) = y(1,n_hor) - params.endState(idx.y);
 final(idx.theta) = theta(1,n_hor) - params.endState(idx.theta);
 
 
-%finalInputs(1) = v(1,n_hor) - 0;
-%finalInputs(2) = w(1,n_hor) - 0;
+finalInputs(1) = v(1,n_hor) - 0;
+finalInputs(2) = w(1,n_hor) - 0;
 
 for i = 1 : size(x,2)
     %object inequality constraints
@@ -53,5 +53,5 @@ end
 
 c = [outCircle' ; v_cond' ; w_cond'  ];
 
-ceq = [dynConst'; initial'; final' ];
+ceq = [dynConst'; initial'; final'; finalInputs' ];
 end
