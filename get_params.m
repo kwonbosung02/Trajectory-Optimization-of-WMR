@@ -15,12 +15,12 @@ idx.n_dim = 3;
 %Weight matrix
 %params.Qunit = [1,1,0.33];
 %params.Runit = [1e-1,1e-1];
-params.Qunit = diag([1.3,1.3,0.7]);
-params.Runit = 1e-9 * eye(1);
+params.Qunit = diag([10,10,8]);
+params.Runit = 1e-8 * eye(1);
 params.Qfinal = 100;
 
 %Algoritmhs
-params.maxFuncIteration= 90000;
+params.maxFuncIteration= 200000;
 
 %sampling period dt
 params.T = 10;
